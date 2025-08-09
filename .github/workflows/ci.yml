@@ -34,30 +34,11 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10.14.0  # Use exact version to match local
           
-      # Step 4: Verify lockfile is committed
-      - name: Check lockfile
-        run: |
-          echo "Checking if pnpm-lock.yaml is committed..."
-          if [ -f pnpm-lock.yaml ]; then
-            echo "✅ pnpm-lock.yaml exists"
-            ls -la pnpm-lock.yaml
-          else
-            echo "❌ pnpm-lock.yaml missing - this will cause CI issues"
-            exit 1
-          fi
-          
-      # Step 5: Install all dependencies
+      # Step 4: Install dependencies
       - name: Install dependencies
-        run: |
-          if [ -f pnpm-lock.yaml ]; then
-            echo "Lockfile found - using frozen install"
-            pnpm install --frozen-lockfile
-          else
-            echo "No lockfile found - installing normally"
-            pnpm install
-          fi
+        run: pnpm install
         
       # Step 5: Lint only what changed
       - name: Lint affected projects

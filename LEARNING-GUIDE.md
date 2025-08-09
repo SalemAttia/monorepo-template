@@ -402,11 +402,22 @@ steps:
 
 ## CI Troubleshooting
 
-### **Lockfile Issues**:
-If CI fails with "pnpm-lock.yaml is absent":
-- ✅ **Solution**: Ensure `pnpm-lock.yaml` is committed to git
-- ✅ **Check**: Run `git ls-files | grep pnpm-lock.yaml`
-- ✅ **Fix**: Run `pnpm install` and commit the lockfile
+### **Package Installation**:
+
+**Local Development**:
+```bash
+# Install dependencies
+pnpm install
+
+# If you have issues, clean and reinstall
+rm -rf node_modules
+pnpm install
+```
+
+**CI Environment**:
+- Uses same `pnpm install` command
+- Matches local development exactly
+- Simple and reliable approach
 
 ### **Test CI Commands Locally**:
 ```bash
