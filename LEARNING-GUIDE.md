@@ -354,11 +354,11 @@ on:
 steps:
   - Checkout code
   - Setup Node.js & pnpm  
-  - Install dependencies
+  - Check lockfile exists
+  - Install dependencies (with lockfile)
   - pnpm run affected:lint
   - pnpm run affected:test
   - pnpm run affected:build
-```
 
 ---
 
@@ -396,4 +396,25 @@ steps:
 ✅ Clean separation - each app has only the dependencies it needs  
 ✅ No version conflicts - different apps can use different React versions  
 ✅ Smaller bundles - apps only include what they import  
-✅ Team workflow - frontend devs don't see backend dependencies  
+✅ Team workflow - frontend devs don't see backend dependencies
+
+---
+
+## CI Troubleshooting
+
+### **Lockfile Issues**:
+If CI fails with "pnpm-lock.yaml is absent":
+- ✅ **Solution**: Ensure `pnpm-lock.yaml` is committed to git
+- ✅ **Check**: Run `git ls-files | grep pnpm-lock.yaml`
+- ✅ **Fix**: Run `pnpm install` and commit the lockfile
+
+### **Test CI Commands Locally**:
+```bash
+# Test what CI will run
+pnpm run affected:lint
+pnpm run affected:test  
+pnpm run affected:build
+
+# Check what would be affected
+pnpm run affected:show
+```  
