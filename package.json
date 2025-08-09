@@ -21,7 +21,7 @@
     "lint:fix": "nx run-many --target=lint --all --fix",
     "affected:build": "nx affected --target=build",
     "affected:test": "nx affected --target=test",
-    "affected:lint": "nx affected --target=lint",
+    "affected:lint": "nx affected --target=lint --base=master",
     "affected:show": "nx show projects --affected",
     "graph": "nx graph",
     "clean": "nx reset",

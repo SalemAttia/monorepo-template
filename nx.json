@@ -87,5 +87,8 @@
       "dependsOn": ["^build"],
       "inputs": ["default", "^default"]
     }
+  },
+  "nxConfig": {
+    "defaultBase": "master"
   }
 }
