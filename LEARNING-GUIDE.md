@@ -337,6 +337,52 @@ pnpm run clean            # Clean Nx cache
 
 ---
 
+## Step 16: GitHub Actions CI
+
+**Created CI workflow in `.github/workflows/ci.yml`:**
+
+### **CI Pipeline** (`ci.yml`):
+**When**: Every push to master/develop, every pull request
+**What**: Tests and builds only changed projects
+```yaml
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master]
+    
+steps:
+  - Checkout code
+  - Setup Node.js & pnpm  
+  - Install dependencies
+  - pnpm run affected:lint
+  - pnpm run affected:test
+  - pnpm run affected:build
+```
+
+---
+
+## How GitHub Actions Works:
+
+### **1. Trigger Events**:
+- `push` - Code pushed to repository
+- `pull_request` - PR opened/updated
+- `workflow_dispatch` - Manual trigger
+- `paths` - Only when specific files change
+
+### **2. Jobs & Steps**:
+- **Jobs** run in parallel (unless dependencies specified)
+- **Steps** run sequentially within a job
+- Each job gets a fresh virtual machine
+
+### **3. Nx Smart CI Benefits**:
+- ✅ **Only builds what changed** - Faster CI times
+- ✅ **Parallel execution** - Multiple projects tested simultaneously  
+- ✅ **Caching** - Nx caches results across CI runs
+- ✅ **Smart deployment** - Only deploy changed apps
+
+---
+
 ## Key Files Explained
 
 - **`pnpm-workspace.yaml`** - Tells pnpm where to find projects with package.json files
