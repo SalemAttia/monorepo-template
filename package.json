@@ -1,0 +1,12 @@
+{
+  "name": "@learning-nx/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@nx/js": "21.3.11",
+    "nx": "21.3.11"
+  }
+}
