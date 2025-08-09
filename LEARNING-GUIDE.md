@@ -37,13 +37,66 @@ cd learning-nx
 
 ---
 
-## Step 4: Next Steps (To Do)
+## Step 4: Add React Plugin
 
-- [ ] Add React plugin
-- [ ] Create first React app in apps/
-- [ ] Verify app has its own package.json
+**Why**: Enables React app generation with Nx
+
+```bash
+npx nx add @nx/react
+```
+
+**Note**: This adds React dependencies to root package.json (we'll fix this next)
+
+---
+
+## Step 5: Create React App with Routing
+
+**Command**:
+```bash
+npx nx g @nx/react:app my-website --directory=apps/my-website --routing=true --style=css --bundler=vite --e2eTestRunner=none --unitTestRunner=jest --linter=eslint
+```
+
+**Problem**: Nx adds React dependencies to root package.json instead of app-specific package.json
+
+---
+
+## Step 6: Fix Dependency Isolation
+
+**Create app-specific package.json**:
+```bash
+# Create apps/my-website/package.json with only React dependencies
+```
+
+**Clean root package.json**:
+```bash
+# Remove React dependencies from root, keep only Nx tools
+```
+
+**Install app dependencies**:
+```bash
+cd apps/my-website && pnpm install
+```
+
+**Result**: ✅ Clean separation - React only in app, Nx tools only in root
+
+---
+
+## Step 7: Test the App
+
+```bash
+npx nx serve my-website
+```
+
+**Success**: App runs on http://localhost:4200/ with proper dependency isolation!
+
+---
+
+## Step 8: Next Steps (To Do)
+
+- [ ] Add Hello World page with routing
 - [ ] Create second app (backend API)
 - [ ] Create shared library
+- [ ] Test cross-app code sharing
 
 ---
 
