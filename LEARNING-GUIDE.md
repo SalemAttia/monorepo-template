@@ -145,12 +145,83 @@ learning-nx/
 
 ---
 
-## Step 10: Next Steps (To Do)
+## Step 10: Create Shared Library
 
-- [ ] Add Hello World page with routing to React app
-- [ ] Create shared library (used by both apps)
-- [ ] Test cross-app code sharing
+**Generate shared library**:
+```bash
+npx nx g @nx/js:lib shared-utils --directory=libs/shared-utils --bundler=tsc
+```
+
+**Add useful shared functions** in `libs/shared-utils/src/lib/shared-utils.ts`:
+```typescript
+export function formatDate(date: Date): string {
+  return date.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+
+export function generateId(): string {
+  return Math.random().toString(36).substring(2) + Date.now().toString(36);
+}
+
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+```
+
+**Update pnpm-workspace.yaml** to include libs:
+```yaml
+packages: 
+  - "apps/*"
+  - "libs/*"
+```
+
+**Build the library**:
+```bash
+npx nx build shared-utils
+```
+
+---
+
+## Step 11: Use Shared Library in Backend
+
+**Add to API's package.json**:
+```json
+{
+  "dependencies": {
+    "express": "4.21.2",
+    "@learning-nx/shared-utils": "workspace:*"
+  }
+}
+```
+
+**Use in API** (`apps/my-api/src/main.ts`):
+```typescript
+import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
+
+app.get('/api', (req, res) => {
+  res.send({ 
+    message: 'Welcome to my-api!',
+    id: generateId(),
+    date: formatDate(new Date()),
+    greeting: capitalize('hello from shared utils!')
+  });
+});
+```
+
+**Install and test**:
+```bash
+cd apps/my-api && pnpm install
+npx nx serve my-api
+curl http://localhost:3333/api
+```
+
+---
+
+## Step 12: Next Steps (To Do)
+
+- [ ] Use shared library in React frontend
+- [ ] Add Hello World page with routing
 - [ ] Connect frontend to backend API
+- [ ] Test cross-app code sharing works end-to-end
 
 ---
 

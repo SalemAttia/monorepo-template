@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "express": "4.21.2"
+    "express": "4.21.2",
+    "@learning-nx/shared-utils": "workspace:*"
   },
   "devDependencies": {
     "@types/express": "4.17.23",
