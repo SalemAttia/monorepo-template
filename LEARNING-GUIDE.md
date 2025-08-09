@@ -91,12 +91,66 @@ npx nx serve my-website
 
 ---
 
-## Step 8: Next Steps (To Do)
+## Step 8: Create Express Backend API
 
-- [ ] Add Hello World page with routing
-- [ ] Create second app (backend API)
-- [ ] Create shared library
+**Add Express plugin**:
+```bash
+npx nx add @nx/express
+```
+
+**Generate Express app**:
+```bash
+npx nx g @nx/express:app my-api --directory=apps/my-api --e2eTestRunner=none --linter=eslint
+```
+
+**Create app-specific package.json for API**:
+```json
+{
+  "name": "my-api",
+  "dependencies": {
+    "express": "4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "4.17.23"
+  }
+}
+```
+
+**Clean root package.json**: Remove Express dependencies from root
+
+**Install and test**:
+```bash
+cd apps/my-api && pnpm install
+npx nx serve my-api
+curl http://localhost:3333/api
+```
+
+**Result**: ✅ API responds with `{"message":"Welcome to my-api!"}`
+
+---
+
+## Step 9: Current Architecture
+
+```
+learning-nx/
+├── apps/
+│   ├── my-website/          ← React app (port 4200)
+│   │   └── package.json     ← React dependencies only
+│   └── my-api/              ← Express API (port 3333)
+│       └── package.json     ← Express dependencies only
+└── package.json             ← Only Nx tools (clean!)
+```
+
+**Perfect isolation**: Each app has only the dependencies it needs!
+
+---
+
+## Step 10: Next Steps (To Do)
+
+- [ ] Add Hello World page with routing to React app
+- [ ] Create shared library (used by both apps)
 - [ ] Test cross-app code sharing
+- [ ] Connect frontend to backend API
 
 ---
 
