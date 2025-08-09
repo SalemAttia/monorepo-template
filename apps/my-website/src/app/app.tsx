@@ -1,50 +1,70 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
-import NxWelcome from './nx-welcome';
-
 import { Route, Routes, Link } from 'react-router-dom';
+import { Button, Card } from '@learning-nx/ui-components';
+import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
 
 export function App() {
+  const currentDate = formatDate(new Date());
+  const userId = generateId();
+  
   return (
-    <div>
-      <NxWelcome title="my-website" />
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>🎉 Welcome to My Website!</h1>
+      
+      <Card title="User Info">
+        <p><strong>User ID:</strong> {userId}</p>
+        <p><strong>Current Date:</strong> {currentDate}</p>
+        <p><strong>Status:</strong> {capitalize('active user')}</p>
+      </Card>
 
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
+      <div style={{ margin: '20px 0' }}>
+        <h2>UI Components Demo</h2>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+          <Button variant="primary" size="small" onClick={() => alert('Small Primary!')}>
+            Small Primary
+          </Button>
+          <Button variant="primary" size="medium" onClick={() => alert('Medium Primary!')}>
+            Medium Primary  
+          </Button>
+          <Button variant="secondary" size="large" onClick={() => alert('Large Secondary!')}>
+            Large Secondary
+          </Button>
+        </div>
       </div>
+
+      <Card title="Navigation">
+        <nav style={{ marginBottom: '20px' }}>
+          <Button variant="secondary" style={{ marginRight: '10px' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
+          </Button>
+          <Button variant="secondary">
+            <Link to="/about" style={{ textDecoration: 'none', color: 'inherit' }}>About</Link>
+          </Button>
+        </nav>
+      </Card>
+
       <Routes>
         <Route
           path="/"
           element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
+            <Card title="Home Page">
+              <p>This is the home page using our shared UI components!</p>
+              <p>✅ Using Button and Card from @learning-nx/ui-components</p>
+              <p>✅ Using utility functions from @learning-nx/shared-utils</p>
+            </Card>
           }
         />
         <Route
-          path="/page-2"
+          path="/about"
           element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
+            <Card title="About Page">
+              <p>This demonstrates how multiple apps can share the same UI components.</p>
+              <Button variant="primary" onClick={() => alert('Shared component working!')}>
+                Test Shared Component
+              </Button>
+            </Card>
           }
         />
       </Routes>
-      {/* END: routes */}
     </div>
   );
 }

@@ -5,6 +5,8 @@
   "scripts": {},
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@eslint/js": "^9.8.0",
     "@nx/eslint": "21.3.11",
     "@nx/eslint-plugin": "21.3.11",
@@ -13,10 +15,13 @@
     "@nx/js": "21.3.11",
     "@nx/node": "21.3.11",
     "@nx/react": "21.3.11",
+    "@nx/rollup": "21.3.11",
     "@nx/vite": "21.3.11",
     "@nx/web": "21.3.11",
     "@nx/webpack": "21.3.11",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@rollup/plugin-url": "^8.0.2",
+    "@svgr/rollup": "^8.1.0",
     "@svgr/webpack": "^8.0.1",
     "@swc-node/register": "~1.9.1",
     "@swc/cli": "~0.6.0",
@@ -32,6 +37,7 @@
     "@vitejs/plugin-react": "^4.2.0",
     "@vitest/ui": "^3.0.0",
     "babel-jest": "^30.0.2",
+    "core-js": "^3.36.1",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-import": "2.31.0",
@@ -48,6 +54,7 @@
     "nx": "21.3.11",
     "prettier": "^2.6.2",
     "react-refresh": "^0.10.0",
+    "rollup": "^4.14.0",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
@@ -57,5 +64,8 @@
     "vitest": "^3.0.0",
     "webpack-cli": "^5.1.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
 }

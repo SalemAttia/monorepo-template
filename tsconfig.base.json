@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@learning-nx/shared-utils": ["libs/shared-utils/src/index.ts"]
+      "@learning-nx/shared-utils": ["libs/shared-utils/src/index.ts"],
+      "@learning-nx/ui-components": ["libs/ui-components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

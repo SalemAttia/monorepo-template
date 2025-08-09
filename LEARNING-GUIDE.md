@@ -216,12 +216,79 @@ curl http://localhost:3333/api
 
 ---
 
-## Step 12: Next Steps (To Do)
+## Step 12: Create UI Components Library
 
-- [ ] Use shared library in React frontend
-- [ ] Add Hello World page with routing
-- [ ] Connect frontend to backend API
-- [ ] Test cross-app code sharing works end-to-end
+**Generate React UI library with Rollup**:
+```bash
+npx nx g @nx/react:lib ui-components --directory=libs/ui-components --bundler=rollup --unitTestRunner=jest --component=true
+```
+
+**Create reusable components** (Button, Card with variants and props):
+- Button with primary/secondary variants and small/medium/large sizes
+- Card component with title and content
+- CSS modules for styling
+
+**Build the library**:
+```bash
+npx nx build ui-components
+```
+
+---
+
+## Step 13: Use UI Components in React App
+
+**Add dependencies to React app**:
+```json
+{
+  "dependencies": {
+    "@learning-nx/ui-components": "workspace:*",
+    "@learning-nx/shared-utils": "workspace:*"
+  }
+}
+```
+
+**Use in React app** (`apps/my-website/src/app/app.tsx`):
+```tsx
+import { Button, Card } from '@learning-nx/ui-components';
+import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
+
+// Use components with props and variants
+<Button variant="primary" size="medium" onClick={handleClick}>
+  Click Me
+</Button>
+
+<Card title="User Info">
+  <p>ID: {generateId()}</p>
+  <p>Date: {formatDate(new Date())}</p>
+</Card>
+```
+
+**Result**: ✅ Fully functional React app using shared UI components and utilities!
+
+---
+
+## Step 14: Final Architecture
+
+```
+learning-nx/
+├── apps/
+│   ├── my-website/          ← React app using ui-components + shared-utils
+│   └── my-api/              ← Express API using shared-utils
+├── libs/
+│   ├── shared-utils/        ← Utility functions (both apps)
+│   └── ui-components/       ← React components (frontend apps)
+└── package.json             ← Only Nx tools (clean!)
+```
+
+**Perfect Monorepo**: 
+- ✅ Clean dependency separation per app
+- ✅ Shared code reuse across apps  
+- ✅ Different tech stacks (React + Express)
+- ✅ Consistent UI components
+- ✅ Type-safe imports
+- ✅ Optimized builds (Rollup for libs, Vite for apps)
+
+**Visit**: `http://localhost:4200` to see the React app with shared components!
 
 ---
 
