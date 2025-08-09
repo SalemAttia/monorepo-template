@@ -292,6 +292,51 @@ learning-nx/
 
 ---
 
+## Step 15: Add Convenient npm Scripts
+
+**Added to root package.json** for easier development:
+
+### **Development Commands**:
+```bash
+pnpm run start:website     # Start React app (port 4200)
+pnpm run start:api         # Start Express API (port 3333)
+```
+
+### **Build Commands**:
+```bash
+pnpm run build:website     # Build React app
+pnpm run build:api         # Build Express API  
+pnpm run build:libs        # Build all libraries
+pnpm run build:all         # Build everything
+```
+
+### **Testing Commands**:
+```bash
+pnpm run test:website      # Test React app
+pnpm run test:api          # Test Express API
+pnpm run test:libs         # Test all libraries
+pnpm run test:all          # Test everything
+```
+
+### **Smart CI/CD Commands**:
+```bash
+pnpm run affected:show     # Show what projects changed
+pnpm run affected:build    # Build only changed projects
+pnpm run affected:test     # Test only changed projects
+pnpm run affected:lint     # Lint only changed projects
+```
+
+### **Utility Commands**:
+```bash
+pnpm run graph            # Open dependency graph visualization
+pnpm run lint:all         # Lint all projects  
+pnpm run lint:fix         # Lint and auto-fix all projects
+pnpm run format           # Format all code
+pnpm run clean            # Clean Nx cache
+```
+
+---
+
 ## Key Files Explained
 
 - **`pnpm-workspace.yaml`** - Tells pnpm where to find projects with package.json files
