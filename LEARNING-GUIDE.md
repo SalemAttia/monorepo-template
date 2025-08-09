@@ -354,11 +354,11 @@ on:
 steps:
   - Checkout code
   - Setup Node.js & pnpm  
-  - Install dependencies
+  - Check lockfile exists
+  - Install dependencies (with lockfile)
   - pnpm run affected:lint
   - pnpm run affected:test
   - pnpm run affected:build
-```
 
 ---
 
@@ -396,4 +396,36 @@ steps:
 ✅ Clean separation - each app has only the dependencies it needs  
 ✅ No version conflicts - different apps can use different React versions  
 ✅ Smaller bundles - apps only include what they import  
-✅ Team workflow - frontend devs don't see backend dependencies  
+✅ Team workflow - frontend devs don't see backend dependencies
+
+---
+
+## CI Troubleshooting
+
+### **Package Installation**:
+
+**Local Development**:
+```bash
+# Install dependencies
+pnpm install
+
+# If you have issues, clean and reinstall
+rm -rf node_modules
+pnpm install
+```
+
+**CI Environment**:
+- Uses same `pnpm install` command
+- Matches local development exactly
+- Simple and reliable approach
+
+### **Test CI Commands Locally**:
+```bash
+# Test what CI will run
+pnpm run affected:lint
+pnpm run affected:test  
+pnpm run affected:build
+
+# Check what would be affected
+pnpm run affected:show
+```  

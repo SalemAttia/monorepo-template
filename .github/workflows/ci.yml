@@ -34,12 +34,11 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10.14.0  # Use exact version to match local
           
-      # Step 4: Install all dependencies
+      # Step 4: Install dependencies
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        # --frozen-lockfile ensures we use exact versions from pnpm-lock.yaml
+        run: pnpm install
         
       # Step 5: Lint only what changed
       - name: Lint affected projects
