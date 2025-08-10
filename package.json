@@ -10,6 +10,7 @@
     "lint": "nx lint",
     "start:website": "nx serve my-website",
     "start:api": "nx serve my-api",
+    "start:api:prod": "NODE_ENV=production nx serve my-api",
     "build:website": "nx build my-website",
     "build:api": "nx build my-api",
     "build:libs": "nx run-many --target=build --projects=shared-utils,ui-components",
