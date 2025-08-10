@@ -1,10 +1,43 @@
 import { Route, Routes, Link } from 'react-router-dom';
 import { Button, Card } from '@learning-nx/ui-components';
 import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
+import { useState, useEffect } from 'react';
+
+interface ApiResponse {
+  message: string;
+  id: string;
+  date: string;
+  greeting: string;
+}
 
 export function App() {
   const currentDate = formatDate(new Date());
   const userId = generateId();
+  
+  const [apiData, setApiData] = useState<ApiResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch('http://localhost:3333/api');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setApiData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
   
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
@@ -40,6 +73,24 @@ export function App() {
             <Link to="/about" style={{ textDecoration: 'none', color: 'inherit' }}>About</Link>
           </Button>
         </nav>
+      </Card>
+
+      <Card title="API Data">
+        {loading && <p>Loading API data...</p>}
+        {error && (
+          <div style={{ color: 'red' }}>
+            <p>Error: {error}</p>
+            <p>Make sure the API is running (pnpm run start:api)</p>
+          </div>
+        )}
+        {apiData && (
+          <div>
+            <p><strong>Message:</strong> {apiData.message}</p>
+            <p><strong>Server ID:</strong> {apiData.id}</p>
+            <p><strong>Server Date:</strong> {apiData.date}</p>
+            <p><strong>Greeting:</strong> {apiData.greeting}</p>
+          </div>
+        )}
       </Card>
 
       <Routes>

@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "express": "4.21.2",
+    "cors": "^2.8.5",
     "@learning-nx/shared-utils": "workspace:*"
   },
   "devDependencies": {
     "@types/express": "4.17.23",
+    "@types/cors": "^2.8.17",
     "@nx/webpack": "21.3.11",
     "webpack-cli": "5.1.4"
   }
