@@ -17,7 +17,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: './tsconfig.app.json',
+        configFile: join(__dirname, 'tsconfig.app.json'),
       }),
     ],
   },
