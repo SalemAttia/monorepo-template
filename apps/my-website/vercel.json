@@ -3,5 +3,4 @@
   "outputDirectory": "../../dist/apps/my-website",
   "framework": "vite",
   "installCommand": "cd ../.. && NODE_ENV=production pnpm install --frozen-lockfile --prod=false",
-  "root": "apps/my-website"
 }
