@@ -6,7 +6,6 @@
 import express from 'express';
 import * as path from 'path';
 import cors from 'cors';
-import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
 import { environment } from './environments/environment';
 
 const app = express();
@@ -36,15 +35,17 @@ app.use(cors({
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.send({
+    message: 'Welcome to my-api!',
+    isLive: true,
+  });
 });
 
 app.get('/api', (req, res) => {
   res.send({ 
     message: 'Welcome to my-api!',
-    id: generateId(),
-    date: formatDate(new Date()),
-    greeting: capitalize('hello from shared utils!')
+    id: '123',
+    date: '2025-01-01',
   });
 });
 

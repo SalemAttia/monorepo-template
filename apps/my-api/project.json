@@ -5,26 +5,6 @@
   "projectType": "application",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/my-api",
-        "main": "apps/my-api/src/main.ts",
-        "tsConfig": "apps/my-api/tsconfig.app.json",
-        "assets": ["apps/my-api/src/assets"],
-        "webpackConfig": "apps/my-api/webpack.config.js",
-        "bundle": true,
-        "externalDependencies": "none"
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false
-        }
-      }
-    },
     "serve": {
       "continuous": true,
       "executor": "@nx/js:node",
