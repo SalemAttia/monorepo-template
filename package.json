@@ -20,7 +20,7 @@
     "lint:all": "nx run-many --target=lint --all",
     "lint:fix": "nx run-many --target=lint --all --fix",
     "affected:build": "nx affected --target=build --base=origin/master",
-    "affected:test": "NODE_OPTIONS=--max_old_space_size=4096 nx affected --target=test --base=origin/master --skip-nx-cache -- --passWithNoTests --forceExit",
+    "affected:test": "NODE_OPTIONS=--max_old_space_size=4096 nx affected --target=test --base=origin/master --skip-nx-cache --parallel=3 -- --passWithNoTests --forceExit",
     "affected:lint": "nx affected --target=lint --base=origin/master",
     "affected:show": "nx show projects --affected --base=origin/master",
     "graph": "nx graph",
