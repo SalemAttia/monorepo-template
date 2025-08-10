@@ -1,7 +1,7 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const { join } = require('path');
 const { NormalModuleReplacementPlugin } = require('webpack');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+// const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 // Get the mode from environment variable or default to development
 const mode = process.env.NODE_ENV || 'development';
@@ -15,11 +15,17 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
-    plugins: [
-      new TsconfigPathsPlugin({
-        configFile: join(__dirname, 'tsconfig.app.json'),
-      }),
-    ],
+    alias: {
+      '@learning-nx/shared-utils': join(
+        __dirname,
+        '../../libs/shared-utils/src/index.ts'
+      ),
+    },
+    // plugins: [
+    //   new TsconfigPathsPlugin({
+    //     configFile: join(__dirname, 'tsconfig.app.json'),
+    //   }),
+    // ],
   },
   target: 'node',
   plugins: [
