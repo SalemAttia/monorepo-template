@@ -2,6 +2,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 import { Button, Card } from '@learning-nx/ui-components';
 import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
 import { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 interface ApiResponse {
   message: string;
@@ -23,7 +24,7 @@ export function App() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('http://localhost:3333/api');
+        const response = await fetch(API_URL);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

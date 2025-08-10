@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
-  // In production, this will be overridden by ALLOWED_ORIGINS env variable
-  allowedOrigins: [],
+  allowedOrigins: ['https://app.vooksio.com/'],
   corsOptions: {
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
