@@ -1,4 +1,6 @@
+/* eslint-disable */
 export default {
+  passWithNoTests: true,
   displayName: 'my-website',
   preset: '../../jest.preset.js',
   transform: {

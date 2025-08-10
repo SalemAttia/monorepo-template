@@ -1,4 +1,6 @@
+/* eslint-disable */
 export default {
+  passWithNoTests: true,
   displayName: 'shared-utils',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
