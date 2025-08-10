@@ -56,21 +56,27 @@ jobs:
       - name: Lint affected projects
         run: pnpm run affected:lint
         
-      # Step 7: Test only what changed
+            # Step 7: Test only what changed
       - name: Test affected projects  
         run: pnpm run affected:test
         
-      # Step 8: Build only what changed
-      - name: Build affected projects
-        run: pnpm run affected:build
+      # Step 7.5: Debug - Check what projects are affected
+      - name: Debug - Show affected projects
+        run: pnpm run affected:show
         
-                    # Step 9: Save the built files for deployment
-      - name: Save build files
-        uses: actions/upload-artifact@v4
-        with:
-          name: website-build
-          path: dist/apps/my-website
-          retention-days: 1
+      # Step 8: Build the website (always build for deployment)
+      - name: Build website
+        run: pnpm run build:website
+        
+      # Step 8.5: Debug - Check what files were created
+      - name: Debug - List build output
+        run: |
+          echo "=== Checking if dist folder exists ==="
+          ls -la dist/ || echo "dist folder not found"
+          echo "=== Checking if website build exists ==="
+          ls -la dist/apps/my-website/ || echo "website build not found"
+          echo "=== Full directory structure ==="
+          find . -name "dist" -type d || echo "No dist directories found"
 
   # Job 2: Deploy Website to Vercel (only if tests pass)
   deploy-website:
@@ -82,15 +88,8 @@ jobs:
       # Step 1: Get the code
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      # Step 2: Get the built files from the previous job
-      - name: Download build files
-        uses: actions/download-artifact@v4
-        with:
-          name: website-build
-          path: dist/apps/my-website
           
-      # Step 3: Deploy to Vercel
+      # Step 2: Deploy to Vercel
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
@@ -98,13 +97,14 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ./apps/my-website
+          vercel-args: '--prod'
           
-      # Step 4: Notify on success
+      # Step 3: Notify on success
       - name: Notify deployment success
         if: success()
         run: echo "✅ Website deployed successfully to Vercel!"
         
-      # Step 5: Notify on failure  
+      # Step 4: Notify on failure  
       - name: Notify deployment failure
         if: failure()
         run: echo "❌ Deployment failed! Check the logs above."
