@@ -8,7 +8,7 @@ const mode = process.env.NODE_ENV || 'development';
 module.exports = {
   mode,
   output: {
-    path: join(__dirname, '../../dist/apps/my-api'),
+    path: join(__dirname, 'dist'),
     filename: 'main.js',
     libraryTarget: 'commonjs2',
   },
