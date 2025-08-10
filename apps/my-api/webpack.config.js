@@ -9,7 +9,11 @@ module.exports = {
   mode,
   output: {
     path: join(__dirname, '../../dist/apps/my-api'),
+    filename: 'main.js',
+    libraryTarget: 'commonjs2',
   },
+  target: 'node',
+  externals: [], // Bundle all dependencies
   plugins: [
     // Replace environment.ts with environment.prod.ts in production
     new NormalModuleReplacementPlugin(
@@ -26,9 +30,11 @@ module.exports = {
       main: './src/main.ts',
       tsConfig: './tsconfig.app.json',
       assets: ['./src/assets'],
-      optimization: false,
+      optimization: true,
       outputHashing: 'none',
       generatePackageJson: true,
+      bundle: true,
+      includeDevDependenciesInPackageJson: false
     }),
   ],
 };

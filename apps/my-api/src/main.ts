@@ -42,9 +42,9 @@ app.get('/', (req, res) => {
 app.get('/api', (req, res) => {
   res.send({ 
     message: 'Welcome to my-api!',
-    // id: generateId(),
-    // date: formatDate(new Date()),
-    // greeting: capitalize('hello from shared utils!')
+    id: generateId(),
+    date: formatDate(new Date()),
+    greeting: capitalize('hello from shared utils!')
   });
 });
 
