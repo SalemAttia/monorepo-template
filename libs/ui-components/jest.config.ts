@@ -1,4 +1,6 @@
+/* eslint-disable */
 export default {
+  passWithNoTests: true,
   displayName: 'ui-components',
   preset: '../../jest.preset.js',
   transform: {

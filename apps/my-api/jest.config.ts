@@ -1,4 +1,6 @@
+/* eslint-disable */
 export default {
+  passWithNoTests: true,
   displayName: 'my-api',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',

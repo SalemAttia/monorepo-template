@@ -89,6 +89,6 @@
     }
   },
   "nxConfig": {
-    "defaultBase": "master"
+    "defaultBase": "origin/master"
   }
 }

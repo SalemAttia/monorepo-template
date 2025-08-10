@@ -46,9 +46,8 @@ jobs:
         
       # Step 6: Test only what changed
       - name: Test affected projects  
-        run: pnpm run affected:test --parallel=3
-        # --parallel=3 runs up to 3 tests at the same time
+        run: pnpm run affected:test
         
       # Step 7: Build only what changed
       - name: Build affected projects
-        run: pnpm run affected:build --parallel=3
+        run: pnpm run affected:build
