@@ -1,7 +1,7 @@
 # This is a GitHub Actions workflow file
 # It defines what happens when code is pushed to GitHub
 
-name: CI Pipeline # This name appears in GitHub Actions tab
+name: CI/CD Pipeline - Deploy to Vercel # This name appears in GitHub Actions tab
 
 # WHEN should this workflow run?
 on:
@@ -40,6 +40,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install
         
+      # Step 4.5: Cache pnpm dependencies (faster builds)
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+        
       # Step 5: Lint only what changed
       - name: Lint affected projects
         run: pnpm run affected:lint
@@ -51,3 +63,48 @@ jobs:
       # Step 7: Build only what changed
       - name: Build affected projects
         run: pnpm run affected:build
+        
+      # Step 8: Save the built files for deployment
+      - name: Save build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-build
+          path: dist/apps/my-website
+          retention-days: 1
+
+  # Job 2: Deploy Website to Vercel (only if tests pass)
+  deploy-website:
+    runs-on: ubuntu-latest
+    needs: test-and-build  # This means: only run if test-and-build job succeeds
+    if: github.ref == 'refs/heads/master'  # Only deploy from master branch
+    
+    steps:
+      # Step 1: Get the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # Step 2: Get the built files from the previous job
+      - name: Download build files
+        uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: dist/apps/my-website
+          
+      # Step 3: Deploy to Vercel
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./apps/my-website
+          
+      # Step 4: Notify on success
+      - name: Notify deployment success
+        if: success()
+        run: echo "✅ Website deployed successfully to Vercel!"
+        
+      # Step 5: Notify on failure  
+      - name: Notify deployment failure
+        if: failure()
+        run: echo "❌ Deployment failed! Check the logs above."
