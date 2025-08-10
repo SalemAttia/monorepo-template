@@ -2,6 +2,7 @@
   "name": "my-api",
   "version": "1.0.0",
   "private": true,
+  "comment": "TODO: @learning-nx/shared-utils dependency needs to be bundled for Vercel.",
   "dependencies": {
     "express": "4.21.2",
     "cors": "^2.8.5",
