@@ -7,9 +7,15 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode,
+  entry: './src/main.ts',
   output: {
     path: join(__dirname, '../../dist/apps/my-api'),
+    filename: 'main.js',
   },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  target: 'node',
   plugins: [
     // Replace environment.ts with environment.prod.ts in production
     new NormalModuleReplacementPlugin(
@@ -26,9 +32,11 @@ module.exports = {
       main: './src/main.ts',
       tsConfig: './tsconfig.app.json',
       assets: ['./src/assets'],
-      optimization: false,
+      optimization: true,
       outputHashing: 'none',
       generatePackageJson: true,
+      bundle: true,
+      bundleDependencies: true
     }),
   ],
 };
