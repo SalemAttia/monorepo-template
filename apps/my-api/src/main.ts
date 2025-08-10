@@ -6,7 +6,7 @@
 import express from 'express';
 import * as path from 'path';
 import cors from 'cors';
-// import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
+import { formatDate, generateId, capitalize } from '@learning-nx/shared-utils';
 import { environment } from './environments/environment';
 
 const app = express();
